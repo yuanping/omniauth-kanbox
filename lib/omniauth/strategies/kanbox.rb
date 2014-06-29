@@ -2,7 +2,7 @@ require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
-    class Kanbox < OmniAuth::Strategies::OAuth
+    class Kanbox < OmniAuth::Strategies::OAuth2
       option :name, 'kanbox'
 
       option :client_options, {
