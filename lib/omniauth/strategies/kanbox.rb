@@ -1,5 +1,4 @@
-require 'omniauth-oauth'
-require 'multi_json'
+require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
