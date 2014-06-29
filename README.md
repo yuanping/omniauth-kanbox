@@ -1,5 +1,5 @@
 =======
-omniauth-workxp
+omniauth-kanbox
 ===============
 
 Unofficial OmniAuth strategy for Kanbox.
