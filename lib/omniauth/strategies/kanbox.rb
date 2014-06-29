@@ -6,7 +6,7 @@ module OmniAuth
       option :name, 'kanbox'
 
       option :client_options, {
-        :authorize_path => '/0/auth',
+        :authorize_url => '/0/auth',
         :site => 'https://auth.kanbox.com',
         :token_url => "/0/token",
       }
