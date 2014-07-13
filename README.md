@@ -1,4 +1,3 @@
-=======
 omniauth-kanbox
 ===============
 
@@ -18,36 +17,53 @@ Or install it yourself as:
 
     $ gem install omniauth-kanbox
 
+
 ## Usage
-Example with devise:
 
-#### routes:
-     devise_for :users, :controllers => { omniauth_callbacks: "omniauth_callbacks"}
-#### user.rb:
-    open omniauthable in devise:
-    devise :omniauthable
-#### controller:
-     rails g controller omniauth_callbacks --skip-helper --skip-assets
-     class OmniauthCallbacksController < ApplicationController
-       def all
-    	 auth = request.env["omniauth.auth"]
-         raise auth.to_yaml
-       end
- 
-       alias_method :kanbox, :all
-     end
-#### devise.rb:
-     config.omniauth :kanbox, 'a9acabbfd9be74d4f77d2227b7621e18c7ba6290d87459801014039f8af63290', '0deb222c9602cedefc7ba17f6820e5c926e20bc9113406ec8fd71fff678189f0'    
+`OmniAuth::Strategies::Kanbox` is simply a Rack middleware. Read the OmniAuth docs for detailed instructions: https://github.com/intridea/omniauth.
 
-#### views:
-     <%= link_to "login by kanbox", http://lvh.me:3000/users/auth/kanbox %>
+Here's a quick example, adding the middleware to a Rails app in `config/initializers/omniauth.rb`:
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :kanbox, ENV['KANBOX_KEY'], ENV['KANBOX_SECRET']
+end
+```
 
 
-## Contributing
+## Auth Hash
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Here's an example *Auth Hash* available in `request.env['omniauth.auth']`:
+
+```ruby
+{
+  :provider => 'kanbox',
+  :uid => 'user email',
+  :info => {
+    :email => 'yp.xjgz@gmail.com',
+    :name => 'yp.xjgz@gmail.com',
+    :phone => '18612553650',
+    ::description => 'spaceUsed:200/20000'
+  },
+  :credentials => {
+    :token => 'ABCDEF...', # OAuth 2.0 access_token, which you may wish to store
+    :expires_at => 1321747205, # when the access token expires (it always will)
+    :expires => true # this will always be true
+  },
+  :extra => {
+    :raw_info => {
+      :status => 'ok',
+      :email => 'yp.xjgz@gmail.com',
+      :phone => '18612553650',
+      :spaceQuota => '200',
+      :spaceUsed => '20000',
+      :emailIsActive => 1,
+      :phoneIsActive => 0
+    }
+  }
+}
+```
+
+The precise information available may depend on the permissions which you request.
+
 

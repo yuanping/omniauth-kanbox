@@ -16,7 +16,9 @@ module OmniAuth
       info do
         {
           :name => raw_info['email'],
-          :email => raw_info['email']
+          :email => raw_info['email'],
+          :phone => raw_info['phone'],
+          :description => "spaceUsed:#{raw_info['spaceUsed']}/#{raw_info['spaceQuota']}"
         }
       end
 
@@ -27,9 +29,8 @@ module OmniAuth
       end
       
       def raw_info
-        @raw_info ||= access_token.get('0/info').parsed
+        @raw_info ||= MultiJson.decode(access_token.get("https://api.kanbox.com/0/info").body)
       end
-
 
     end
   end
