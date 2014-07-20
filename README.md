@@ -46,9 +46,10 @@ Here's an example *Auth Hash* available in `request.env['omniauth.auth']`:
     ::description => 'spaceUsed:200/20000'
   },
   :credentials => {
+    :expires => false,
     :token => 'ABCDEF...', # OAuth 2.0 access_token, which you may wish to store
-    :expires_at => 1321747205, # when the access token expires (it always will)
-    :expires => true # this will always be true
+    :refresh_token => 'decfa',
+    :expires_at => 1321747205 # when the access token expires (it always will)
   },
   :extra => {
     :raw_info => {
